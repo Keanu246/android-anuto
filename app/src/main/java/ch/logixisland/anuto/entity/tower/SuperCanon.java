@@ -25,9 +25,9 @@ import ch.logixisland.anuto.util.RandomUtils;
 import ch.logixisland.anuto.util.math.MathUtils;
 import ch.logixisland.anuto.util.math.Vector2;
 
-public class MachineGun extends Tower implements SpriteTransformation {
+public class SuperCanon extends Tower implements SpriteTransformation {
 
-    public final static String ENTITY_NAME = "machineGun";
+    public final static String ENTITY_NAME = "superCanon";
     private final static float SHOT_SPAWN_OFFSET = 0.7f;
     private final static float MG_ROTATION_SPEED = 3f;
 
@@ -48,7 +48,7 @@ public class MachineGun extends Tower implements SpriteTransformation {
     public static class Factory extends EntityFactory {
         @Override
         public Entity create(GameEngine gameEngine) {
-            return new MachineGun(gameEngine);
+            return new Canon(gameEngine);
         }
     }
 
@@ -61,28 +61,33 @@ public class MachineGun extends Tower implements SpriteTransformation {
         SpriteTemplate mSpriteTemplateCanon;
     }
 
-    private float mBaseReloadTime;
     private float mAngle = 90f;
-    private StaticSprite mSpriteBase;
-    private AnimatedSprite mSpriteCanon;
-    private int mShotCount = 0;
-    private Sound mSound;
+    private boolean mReboundActive;
     private final Aimer mAimer = new Aimer(this);
 
-    private MachineGun(GameEngine gameEngine) {
+    private SampledFunction mReboundFunction;
+
+    private StaticSprite mSpriteBase;
+    private StaticSprite mSpriteCanon;
+
+    private Sound mSound;
+
+    private Canon(GameEngine gameEngine) {
         super(gameEngine, TOWER_PROPERTIES);
         StaticData s = (StaticData) getStaticData();
+
+        mReboundFunction = Function.sine()
+                .multiply(REBOUND_RANGE)
+                .stretch(GameEngine.TARGET_FRAME_RATE * REBOUND_DURATION / (float) Math.PI)
+                .sample();
 
         mSpriteBase = getSpriteFactory().createStatic(Layers.TOWER_BASE, s.mSpriteTemplateBase);
         mSpriteBase.setListener(this);
         mSpriteBase.setIndex(RandomUtils.next(4));
 
-        mSpriteCanon = getSpriteFactory().createAnimated(Layers.TOWER, s.mSpriteTemplateCanon);
+        mSpriteCanon = getSpriteFactory().createStatic(Layers.TOWER, s.mSpriteTemplateCanon);
         mSpriteCanon.setListener(this);
-        mSpriteCanon.setSequenceForward();
-
-        mBaseReloadTime = getReloadTime();
-        mSpriteCanon.setFrequency(MG_ROTATION_SPEED);
+        mSpriteCanon.setIndex(RandomUtils.next(4));
 
         mSound = getSoundFactory().createSound(R.raw.gun3_dit);
         mSound.setVolume(0.5f);
@@ -100,8 +105,8 @@ public class MachineGun extends Tower implements SpriteTransformation {
         s.mSpriteTemplateBase = getSpriteFactory().createTemplate(R.attr.base1, 4);
         s.mSpriteTemplateBase.setMatrix(1f, 1f, null, null);
 
-        s.mSpriteTemplateCanon = getSpriteFactory().createTemplate(R.attr.canonMg, 5);
-        s.mSpriteTemplateCanon.setMatrix(0.8f, 1.0f, new Vector2(0.4f, 0.4f), -90f);
+        s.mSpriteTemplateCanon = getSpriteFactory().createTemplate(R.attr.canon, 4);
+        s.mSpriteTemplateCanon.setMatrix(0.4f, 1.0f, new Vector2(0.2f, 0.2f), -90f);
 
         return s;
     }
@@ -123,32 +128,29 @@ public class MachineGun extends Tower implements SpriteTransformation {
     }
 
     @Override
-    public void enhance() {
-        super.enhance();
-        mSpriteCanon.setFrequency(MG_ROTATION_SPEED * mBaseReloadTime / getReloadTime());
-    }
-
-    @Override
     public void tick() {
         super.tick();
         mAimer.tick();
 
         if (mAimer.getTarget() != null) {
-            Vector2 shootingDirection = calcShootingDirection(mAimer.getTarget());
-            mAngle = shootingDirection.angle();
-            mSpriteCanon.tick();
+            mAngle = getAngleTo(mAimer.getTarget());
 
             if (isReloaded()) {
-                Shot shot = new CanonShotMg(this, getPosition(), shootingDirection, getDamage());
+                Shot shot = new CanonShot(this, getPosition(), mAimer.getTarget(), getDamage());
                 shot.move(Vector2.polar(SHOT_SPAWN_OFFSET, mAngle));
                 getGameEngine().add(shot);
-                mShotCount++;
-
-                if (mShotCount % 2 == 0) {
-                    mSound.play();
-                }
+                mSound.play();
 
                 setReloaded(false);
+                mReboundActive = true;
+            }
+        }
+
+        if (mReboundActive) {
+            mReboundFunction.step();
+            if (mReboundFunction.getPosition() >= GameEngine.TARGET_FRAME_RATE * REBOUND_DURATION) {
+                mReboundFunction.reset();
+                mReboundActive = false;
             }
         }
     }
@@ -162,6 +164,10 @@ public class MachineGun extends Tower implements SpriteTransformation {
     public void draw(SpriteInstance sprite, SpriteTransformer transformer) {
         transformer.translate(getPosition());
         transformer.rotate(mAngle);
+
+        if (sprite == mSpriteCanon && mReboundActive) {
+            transformer.translate(-mReboundFunction.getValue(), 0);
+        }
     }
 
     @Override
@@ -178,26 +184,5 @@ public class MachineGun extends Tower implements SpriteTransformation {
         properties.add(new TowerInfoValue(R.string.range, getRange()));
         properties.add(new TowerInfoValue(R.string.inflicted, getDamageInflicted()));
         return properties;
-    }
-
-    private Vector2 calcShootingDirection(Enemy target) {
-        Vector2 ps = getPosition().add(getDirectionTo(target).mul(SHOT_SPAWN_OFFSET));
-        Vector2 pt = target.getPosition();
-        Vector2 ptToPs = pt.to(ps);
-
-        Vector2 dt = target.getDirection();
-        if (dt == null) {
-            // target has no waypoint
-            return getDirectionTo(target);
-        }
-
-        float vs = CanonShotMg.MOVEMENT_SPEED;
-        float vt = target.getSpeed();
-
-        float alpha = dt.angle() - ptToPs.angle();
-        float beta = MathUtils.toDegrees((float) Math.asin(vt * Math.sin(MathUtils.toRadians(alpha)) / vs));
-
-        float angle = 180f + ptToPs.angle() - beta;
-        return Vector2.polar(1f, angle);
     }
 }
