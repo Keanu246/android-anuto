@@ -31,7 +31,7 @@ public class SimpleLaser extends Tower implements SpriteTransformation {
             .setDamage(230)
             .setRange(3.0f)
             .setReload(1.5f)
-            .setMaxLevel(10)
+            .setMaxLevel(15)
             .setWeaponType(WeaponType.Laser)
             .setEnhanceBase(1.2f)
             .setEnhanceCost(50)
