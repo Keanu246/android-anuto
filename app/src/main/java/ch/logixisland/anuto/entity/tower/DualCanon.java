@@ -36,7 +36,7 @@ public class DualCanon extends Tower implements SpriteTransformation {
             .setDamage(3400)
             .setRange(3.0f)
             .setReload(0.5f)
-            .setMaxLevel(10)
+            .setMaxLevel(20)
             .setWeaponType(WeaponType.Bullet)
             .setEnhanceBase(1.4f)
             .setEnhanceCost(470)
