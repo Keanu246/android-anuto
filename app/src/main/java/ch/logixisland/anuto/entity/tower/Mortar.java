@@ -37,7 +37,7 @@ public class Mortar extends Tower implements SpriteTransformation {
             .setDamage(100)
             .setRange(2.5f)
             .setReload(2.0f)
-            .setMaxLevel(10)
+            .setMaxLevel(15)
             .setWeaponType(WeaponType.Explosive)
             .setEnhanceBase(1.2f)
             .setEnhanceCost(125)
