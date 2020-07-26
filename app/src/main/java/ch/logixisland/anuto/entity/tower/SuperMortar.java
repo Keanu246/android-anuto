@@ -29,8 +29,8 @@ public class Mortar extends Tower implements SpriteTransformation {
     private final static float REBOUND_DURATION = 0.5f;
 
     private final static float INACCURACY = 1.0f;
-    private final static float EXPLOSION_RADIUS = 1.5f;
-    private final static float ENHANCE_EXPLOSION_RADIUS = 0.05f;
+    private final static float EXPLOSION_RADIUS = 2.0f;
+    private final static float ENHANCE_EXPLOSION_RADIUS = 0.1f;
 
     private final static TowerProperties TOWER_PROPERTIES = new TowerProperties.Builder()
             .setValue(113100)
