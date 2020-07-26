@@ -36,7 +36,7 @@ public class Canon extends Tower implements SpriteTransformation {
             .setDamage(100)
             .setRange(2.5f)
             .setReload(1.0f)
-            .setMaxLevel(10)
+            .setMaxLevel(15)
             .setWeaponType(WeaponType.Bullet)
             .setEnhanceBase(1.2f)
             .setEnhanceCost(50)
