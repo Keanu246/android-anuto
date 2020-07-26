@@ -46,6 +46,8 @@ import ch.logixisland.anuto.entity.tower.RocketLauncher;
 import ch.logixisland.anuto.entity.tower.SimpleLaser;
 import ch.logixisland.anuto.entity.tower.StraightLaser;
 import ch.logixisland.anuto.entity.tower.SuperCanon;
+import ch.logixisland.anuto.entity.tower.SuperLaser;
+import ch.logixisland.anuto.entity.tower.SuperMortar;
 import ch.logixisland.anuto.entity.tower.Teleporter;
 
 public class GameFactory {
@@ -120,9 +122,11 @@ public class GameFactory {
         mEntityRegistry.registerEntity(SimpleLaser.ENTITY_NAME, new SimpleLaser.Factory(), new SimpleLaser.Persister());
         mEntityRegistry.registerEntity(BouncingLaser.ENTITY_NAME, new BouncingLaser.Factory(), new BouncingLaser.Persister());
         mEntityRegistry.registerEntity(StraightLaser.ENTITY_NAME, new StraightLaser.Factory(), new StraightLaser.Persister());
+        mEntityRegistry.registerEntity(StraightLaser.ENTITY_NAME, new StraightLaser.Factory(), new SuperLaser.Persister());
         mEntityRegistry.registerEntity(Mortar.ENTITY_NAME, new Mortar.Factory(), new Mortar.Persister());
         mEntityRegistry.registerEntity(MineLayer.ENTITY_NAME, new MineLayer.Factory(), new MineLayer.Persister());
         mEntityRegistry.registerEntity(RocketLauncher.ENTITY_NAME, new RocketLauncher.Factory(), new RocketLauncher.Persister());
+        mEntityRegistry.registerEntity(RocketLauncher.ENTITY_NAME, new RocketLauncher.Factory(), new SuperMortar.Persister());
         mEntityRegistry.registerEntity(GlueTower.ENTITY_NAME, new GlueTower.Factory(), new GlueTower.Persister());
         mEntityRegistry.registerEntity(GlueGun.ENTITY_NAME, new GlueGun.Factory(), new GlueGun.Persister());
         mEntityRegistry.registerEntity(Teleporter.ENTITY_NAME, new Teleporter.Factory(), new Teleporter.Persister());
