@@ -40,7 +40,7 @@ public class MineLayer extends Tower implements SpriteTransformation {
             .setDamage(3100)
             .setRange(2.5f)
             .setReload(2.5f)
-            .setMaxLevel(10)
+            .setMaxLevel(20)
             .setWeaponType(WeaponType.Explosive)
             .setEnhanceBase(1.4f)
             .setEnhanceCost(750)
