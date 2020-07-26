@@ -31,13 +31,15 @@ public class StraightLaser extends Tower implements SpriteTransformation {
             .setDamage(44000)
             .setRange(3.0f)
             .setReload(3.0f)
-            .setMaxLevel(15)
+            .setMaxLevel(25)
             .setWeaponType(WeaponType.Laser)
             .setEnhanceBase(1.5f)
             .setEnhanceCost(950)
             .setEnhanceDamage(410)
             .setEnhanceRange(0.07f)
             .setEnhanceReload(0.07f)
+            .setUpgradeTowerName(ch.logixisland.anuto.entity.tower.SuperLaser.ENTITY_NAME)
+            .setUpgradeCost(335000)
             .build();
 
     public static class Factory extends EntityFactory {
