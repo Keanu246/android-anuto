@@ -24,7 +24,7 @@ import ch.logixisland.anuto.util.math.Vector2;
 
 public class Mortar extends Tower implements SpriteTransformation {
 
-    public final static String ENTITY_NAME = "mortar";
+    public final static String ENTITY_NAME = "superMortar";
     private final static float SHOT_SPAWN_OFFSET = 0.6f;
     private final static float REBOUND_DURATION = 0.5f;
 
@@ -33,19 +33,17 @@ public class Mortar extends Tower implements SpriteTransformation {
     private final static float ENHANCE_EXPLOSION_RADIUS = 0.05f;
 
     private final static TowerProperties TOWER_PROPERTIES = new TowerProperties.Builder()
-            .setValue(250)
-            .setDamage(100)
-            .setRange(2.5f)
-            .setReload(2.0f)
-            .setMaxLevel(10)
+            .setValue(113100)
+            .setDamage(133300)
+            .setRange(3.5f)
+            .setReload(2.5f)
+            .setMaxLevel(30)
             .setWeaponType(WeaponType.Explosive)
-            .setEnhanceBase(1.2f)
-            .setEnhanceCost(125)
-            .setEnhanceDamage(60)
-            .setEnhanceRange(0.05f)
-            .setEnhanceReload(0.05f)
-            .setUpgradeTowerName(MineLayer.ENTITY_NAME)
-            .setUpgradeCost(10000)
+            .setEnhanceBase(1.5f)
+            .setEnhanceCost(1550)
+            .setEnhanceDamage(725)
+            .setEnhanceRange(0.15f)
+            .setEnhanceReload(0.06f)
             .build();
 
     public static class Factory extends EntityFactory {
