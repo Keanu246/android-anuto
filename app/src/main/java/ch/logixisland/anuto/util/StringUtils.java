@@ -26,15 +26,32 @@ public final class StringUtils {
         String suffix = "";
         boolean big = false;
 
-        if (value >= 1e10f) {
+        if (value >= 1e18f) {
+            suffix = "E";
+            value /= 1e18f;
+            big = true;
+        } 
+        else if (value >= 1e15f) {
+            suffix = "P";
+            value /= 1e15f;
+            big = true;
+        } 
+        else if (value >= 1e12f) {
+            suffix = "T";
+            value /= 1e12f;
+            big = true;
+        } 
+        else if (value >= 1e9f) {
             suffix = "G";
             value /= 1e9f;
             big = true;
-        } else if (value >= 1e7f) {
+        } 
+        else if (value >= 1e6f) {
             suffix = "M";
             value /= 1e6f;
             big = true;
-        } else if (value >= 1e4f) {
+        } 
+        else if (value >= 1e3f) {
             suffix = "k";
             value /= 1e3f;
             big = true;
