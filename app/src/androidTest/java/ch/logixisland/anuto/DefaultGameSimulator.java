@@ -24,7 +24,7 @@ import ch.logixisland.anuto.util.math.Vector2;
 
 public class DefaultGameSimulator extends GameSimulator {
 
-    private static final int MAX_TIER = 3;
+    private static final int MAX_TIER = 4;
     private static final int MAX_UNENHANCED_TOWERS_PER_TIER = 2;
     private static final int MAX_ENHANCED_TOWERS_PER_TIER = 4;
     private static final int NO_SLOW_DOWN_TOWERS_BEFORE_WAVE = 20;
