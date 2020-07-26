@@ -33,7 +33,7 @@ public class SuperCanon extends Tower implements SpriteTransformation {
 
     private final static TowerProperties TOWER_PROPERTIES = new TowerProperties.Builder()
             .setValue(94200)
-            .setDamage(90000)
+            .setDamage(110000)
             .setRange(4.0f)
             .setReload(0.5f)
             .setMaxLevel(30)
