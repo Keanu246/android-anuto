@@ -23,23 +23,21 @@ import ch.logixisland.anuto.util.math.Vector2;
 
 public class SimpleLaser extends Tower implements SpriteTransformation {
 
-    public final static String ENTITY_NAME = "simpleLaser";
+    public final static String ENTITY_NAME = "superLaser";
     private final static float LASER_SPAWN_OFFSET = 0.7f;
 
     private final static TowerProperties TOWER_PROPERTIES = new TowerProperties.Builder()
-            .setValue(150)
-            .setDamage(230)
+            .setValue(103600)
+            .setDamage(620000)
             .setRange(3.0f)
-            .setReload(1.5f)
-            .setMaxLevel(15)
+            .setReload(2.0f)
+            .setMaxLevel(30)
             .setWeaponType(WeaponType.Laser)
-            .setEnhanceBase(1.2f)
-            .setEnhanceCost(50)
-            .setEnhanceDamage(40)
-            .setEnhanceRange(0.05f)
-            .setEnhanceReload(0.1f)
-            .setUpgradeTowerName(ch.logixisland.anuto.entity.tower.BouncingLaser.ENTITY_NAME)
-            .setUpgradeCost(7000)
+            .setEnhanceBase(1.5f)
+            .setEnhanceCost(1600)
+            .setEnhanceDamage(1850)
+            .setEnhanceRange(0.1f)
+            .setEnhanceReload(0.05f)
             .build();
 
     public static class Factory extends EntityFactory {
