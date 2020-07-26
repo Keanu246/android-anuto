@@ -36,13 +36,15 @@ public class MachineGun extends Tower implements SpriteTransformation {
             .setDamage(20000)
             .setRange(3.5f)
             .setReload(0.15f)
-            .setMaxLevel(15)
+            .setMaxLevel(25)
             .setWeaponType(WeaponType.Bullet)
             .setEnhanceBase(1.5f)
             .setEnhanceCost(750)
             .setEnhanceDamage(120)
             .setEnhanceRange(0.05f)
             .setEnhanceReload(0.005f)
+            .setUpgradeTowerName(SuperCanon.ENTITY_NAME)
+            .setUpgradeCost(380000)
             .build();
 
     public static class Factory extends EntityFactory {
