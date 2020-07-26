@@ -33,16 +33,16 @@ public class MachineGun extends Tower implements SpriteTransformation {
 
     private final static TowerProperties TOWER_PROPERTIES = new TowerProperties.Builder()
             .setValue(94200)
-            .setDamage(20000)
-            .setRange(3.5f)
-            .setReload(0.15f)
-            .setMaxLevel(15)
+            .setDamage(90000)
+            .setRange(4.0f)
+            .setReload(0.5f)
+            .setMaxLevel(30)
             .setWeaponType(WeaponType.Bullet)
             .setEnhanceBase(1.5f)
-            .setEnhanceCost(750)
-            .setEnhanceDamage(120)
-            .setEnhanceRange(0.05f)
-            .setEnhanceReload(0.005f)
+            .setEnhanceCost(1250)
+            .setEnhanceDamage(750)
+            .setEnhanceRange(0.1f)
+            .setEnhanceReload(0.01f)
             .build();
 
     public static class Factory extends EntityFactory {
