@@ -45,6 +45,7 @@ import ch.logixisland.anuto.entity.tower.Mortar;
 import ch.logixisland.anuto.entity.tower.RocketLauncher;
 import ch.logixisland.anuto.entity.tower.SimpleLaser;
 import ch.logixisland.anuto.entity.tower.StraightLaser;
+import ch.logixisland.anuto.entity.tower.SuperCanon;
 import ch.logixisland.anuto.entity.tower.Teleporter;
 
 public class GameFactory {
@@ -115,6 +116,7 @@ public class GameFactory {
         mEntityRegistry.registerEntity(Canon.ENTITY_NAME, new Canon.Factory(), new Canon.Persister());
         mEntityRegistry.registerEntity(DualCanon.ENTITY_NAME, new DualCanon.Factory(), new DualCanon.Persister());
         mEntityRegistry.registerEntity(MachineGun.ENTITY_NAME, new MachineGun.Factory(), new MachineGun.Persister());
+        mEntityRegistry.registerEntity(SuperCanon.ENTITY_NAME, new SuperCanon.Factory(), new SuperCanon.Persister());
         mEntityRegistry.registerEntity(SimpleLaser.ENTITY_NAME, new SimpleLaser.Factory(), new SimpleLaser.Persister());
         mEntityRegistry.registerEntity(BouncingLaser.ENTITY_NAME, new BouncingLaser.Factory(), new BouncingLaser.Persister());
         mEntityRegistry.registerEntity(StraightLaser.ENTITY_NAME, new StraightLaser.Factory(), new StraightLaser.Persister());
